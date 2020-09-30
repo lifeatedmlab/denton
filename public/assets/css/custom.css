@@ -1,0 +1,74 @@
+.form-body {
+  background-color: #05070f;
+}
+
+.form-container {
+  background-color: transparent !important;
+}
+
+.title {
+  color: #fefefe;
+  font-family: "Montserrat Black";
+  font-style: normal;
+  font-weight: bold;
+  font-size: 400%;
+  line-height: 150%;
+  letter-spacing: 0.2em;
+}
+
+.sub-title {
+  color: #FF5450;
+  font-family: Libre Baskerville;
+  font-style: normal;
+  font-weight: bold;
+  line-height: 90px;
+  letter-spacing: 0.2em;
+}
+
+.p-subtitle {
+  color: #fefefe;
+}
+
+.form-content label {
+  font-family: "Libre Baskerville";
+  color: #fefefe !important;
+}
+.form-content input {
+  background-color: #12132d;
+  border: 1px #fefefe;
+  color: #FF5450;
+}
+.form-content .btn-submit {
+  background-color: #FF5450;
+  border: none;
+  box-shadow: 0px 79px 47px -30px #FF5450;
+}
+.form-content select {
+  background-color: #12132d !important;
+  border: 1px #fefefe !important;
+  color: #FF5450 !important;
+}
+
+@media (min-width: 200px) and (max-width: 991px) {
+  .title {
+    color: #fefefe;
+    font-family: "Montserrat Black";
+    font-style: normal;
+    font-weight: bold;
+    line-height: 125% !important;
+    font-size: 42px !important;
+    letter-spacing: 0em !important;
+  }
+
+  .sub-title {
+    color: #FF5450;
+    font-family: Libre Baskerville;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px !important;
+    line-height: 130% !important;
+    letter-spacing: 0em !important;
+  }
+}
+
+/*# sourceMappingURL=custom.css.map */

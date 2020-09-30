@@ -1,0 +1,79 @@
+$dark-blue: #200463;
+$light-red: #FF5450;
+$dark: #05070f;
+$light: #fefefe;
+$gray: #12132d;
+
+.form-body{
+  background-color: $dark;
+}
+.form-container{
+  background-color: transparent !important;
+}
+.title{
+  color: $light;
+  font-family: "Montserrat Black";
+  font-style: normal;
+  font-weight: bold;
+  font-size: 400%;
+  line-height: 150%;
+  letter-spacing: 0.2em;
+}
+
+.sub-title{
+  color: $light-red;
+  font-family: Libre Baskerville;
+  font-style: normal;
+  font-weight: bold;
+  line-height: 90px;
+  letter-spacing: 0.2em;
+}
+
+.p-subtitle{
+    color: $light;
+}
+
+.form-content{
+  label{
+    font-family: "Libre Baskerville";
+    color: $light !important;
+  }
+  input{
+    background-color: $gray;
+    border: 1px $light;
+    color: $light-red;
+  }
+  .btn-submit{
+    background-color: $light-red;
+    border: none;
+    box-shadow: 0px 79px 47px -30px #FF5450;
+  }
+  select{
+    background-color: $gray !important;
+    border: 1px $light !important;
+    color: $light-red !important;
+  }
+}
+
+@media (min-width: 200px) and (max-width: 991px) {
+  //belum selesai
+  .title{
+    color: $light;
+    font-family: "Montserrat Black";
+    font-style: normal;
+    font-weight: bold;
+    line-height: 125% !important;
+    font-size: 42px !important;
+    letter-spacing: 0em !important;
+  }
+
+  .sub-title{
+    color: $light-red;
+    font-family: Libre Baskerville;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px !important;
+    line-height: 130% !important;
+    letter-spacing: 0em !important;
+  }
+}
