@@ -16,8 +16,9 @@ class MemberController extends Controller
      */
     public function index()
     {
+        // return view('admin.member.index');
         $members = Member::latest()->paginate(5);
-        return view('members.index', compact('members'))->with('i', (request()->input('page', 1) - 1) * 5);
+        return view('admin.member.index', compact('members'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -27,7 +28,7 @@ class MemberController extends Controller
      */
     public function create()
     {
-        return view('members.create');
+        return view('admin.member.create');
     }
 
     /**
@@ -57,10 +58,10 @@ class MemberController extends Controller
         ]);
 
         if($request->submit == 'add'){
-            return redirect()->route('members.create');
+            return redirect()->route('member.create')->with('success', 'Member added successfully');
         }
 
-        return redirect()->route('members.index')->with('success', 'Member added successfully');
+        return redirect()->route('member.index')->with('success', 'Member added successfully');
     }
 
     /**
@@ -83,7 +84,7 @@ class MemberController extends Controller
     public function edit($code)
     {
         $member = Member::where('code', $code)->first();
-        return view('members.edit', compact('member'));
+        return view('admin.member.edit', compact('member'));
     }
 
     /**
@@ -113,7 +114,7 @@ class MemberController extends Controller
             ],
         ]);
 
-        return redirect()->route('members.index')->with('success', 'Member edited successfully');
+        return redirect()->route('member.index')->with('success', 'Member edited successfully');
     }
 
     /**
@@ -125,6 +126,6 @@ class MemberController extends Controller
     public function destroy($id)
     {
         Member::find($id)->delete();
-        return redirect()->route('members.index')->with('success', 'Member deleted successfully');
+        return redirect()->route('member.index')->with('success', 'Member deleted successfully');
     }
 }
