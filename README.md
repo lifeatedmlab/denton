@@ -1,18 +1,18 @@
-<p align="center"><a href="http://edelab.my.id" target="_blank"><img src="https://raw.githubusercontent.com/lifeatedelab/belajar-git/master/ede-logo-main.png" width="400"></a></p>
+<p align="center"><a href="http://edelab.my.id" target="_blank"><img src="https://raw.githubusercontent.com/lifeatedelab/belajar-git/master/ede-logo-main.png" width="300"></a></p>
 
 <p align="center">
 <a href="https://linkedin.com/company/lifeatedelab"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="EDE Laboratory Linkedin"></a>
-<a href="https://http://lifetatedelab.medium.com/"><img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="EDE Laboratory Linkedin"></a>
-<a href="https://linkedin.com/company/lifeatedelab"><img src="https://img.shields.io/badge/Medium-12100E?style=for-the-badge&logo=medium&logoColor=white" alt="EDE Laboratory Linkedin"></a>
-<a href="https://www.youtube.com/channel/UCEFtNYynJcf5UpG5unJl4dw"><img src="https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="EDE Laboratory Linkedin"></a>
-<a href="mailto:contact.edelab@gmail.com"><img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="EDE Laboratory Linkedin"></a>
+<a href="https://instagram.com/lifeatedelab"><img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="EDE Laboratory Instagram"></a>
+<a href="https://lifeatedelab.medium.com"><img src="https://img.shields.io/badge/Medium-12100E?style=for-the-badge&logo=medium&logoColor=white" alt="EDE Laboratory Medium"></a>
+<a href="https://www.youtube.com/channel/UCEFtNYynJcf5UpG5unJl4dw"><img src="https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="EDE Laboratory Youtube"></a>
+<a href="mailto:contact.edelab@gmail.com"><img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="EDE Laboratory Gmail"></a>
 
 ## About The Denton
 
 The Denton is a repository for EDE Laboratory official website. The name **denton** is taken from a baby's name in English which means "*Rumah yang Bahagia*" (a happy home).
 
 ## Requirements
-- PHP >= 7.3.0-
+- PHP >= 7.3.0
 - Laravel 8
 
 ## Ussage
