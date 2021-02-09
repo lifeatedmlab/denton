@@ -67,7 +67,7 @@
                                 <img src="{{ Storage::url('public/images/').$portfolio->image }}" alt="{{ $portfolio->image }}">
                             </td>
                             <td>{{ $portfolio->name }}</td>
-                            <td>{{ $portfolio->description }}</td>
+                            <td class="text-wrap">{{ $portfolio->description }}</td>
                             <td>{{ $portfolio->year }}</td>
                             <td><a href="http://{{ $portfolio->link }}">{{ $portfolio->link }}</a></td>
                             <td class="text-center">
