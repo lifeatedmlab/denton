@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 Route::view('/', 'index')->name('index');
 
 Route::view('/dashboard', 'admin.dashboard')->name('dashboard');
+Route::view('/dashboardd', 'dashboard')->name('dashboardd');
 
 // Member Routes
 Route::resource('member', MemberController::class)->parameters([
