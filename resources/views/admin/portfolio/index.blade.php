@@ -64,7 +64,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>                            
                             <td class="text-center">
-                                <img src="{{ Storage::url('public/images/').$portfolio->image }}" alt="{{ $portfolio->image }}" width="250px" height="200px">
+                                <img src="{{ Storage::url('public/images/'.$portfolio->image )}}" alt="{{ $portfolio->image }}" width="250px" height="200px">
                             </td>
                             <td>{{ $portfolio->name }}</td>
                             <td class="text-wrap">{{ $portfolio->description }}</td>
