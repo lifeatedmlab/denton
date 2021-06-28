@@ -204,13 +204,13 @@
                     <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
                         <div class="media align-items-center">
-                            @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
+                            
                             <span class="avatar avatar-sm rounded-circle">
-                                <img alt="Profile Photo" src="{{ Auth::user()->profile_photo_url }}">
+                                <img alt="Profile Photo" src="{{ asset('images/profile.png') }}">
                             </span>
-                            @endif
+                           
                             <div class="media-body ml-2 d-none d-lg-block">
-                                <span class="mb-0 text-sm  font-weight-bold">{{ Auth::user()->name }}</span>
+                                <span class="mb-0 text-sm  font-weight-bold">John Snow</span>
                             </div>
                         </div>
                     </a>
@@ -218,17 +218,11 @@
                         <div class="dropdown-header noti-title">
                             <h6 class="text-overflow m-0">Welcome!</h6>
                         </div>
-                        <a href="{{ route('profile.show') }}" class="dropdown-item">
+                        <a href="" class="dropdown-item">
                             <i class="ni ni-single-02"></i>
                             <span>{{ __('Profile') }}</span>
                         </a>
 
-                        @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
-                        <a href="{{ route('api-tokens.index') }}" class="dropdown-item">
-                            <i class="ni ni-settings-gear-65"></i>
-                            <span>{{ __('API Tokens') }}</span>
-                        </a>
-                        @endif
                         
                         <a href="#!" class="dropdown-item">
                             <i class="ni ni-calendar-grid-58"></i>
@@ -241,14 +235,14 @@
                         <div class="dropdown-divider"></div>
 
                         <!-- Authentication -->
-                        <form method="POST" action="{{ route('logout') }}">
+                        {{-- <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();
                   this.closest('form').submit();">
                                 <i class="ni ni-user-run"></i>
                                 <span>{{ __('Log Out') }}</span>
                             </a>
-                        </form>
+                        </form> --}}
                     </div>
                 </li>
             </ul>
