@@ -16,13 +16,18 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('code')->unique();
+            $table->string('nim')->unique();
+            $table->string('generation');
+            $table->year('batch_year');
+            $table->enum('status', ['active', 'inactive', 'graduate']);
+            $table->json('socmed'); // linkedin, github, instagram
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->foreignId('current_team_id')->nullable();
             $table->text('profile_photo_path')->nullable();
-            $table->timestamps();
+            $table->timestamps();  
         });
     }
 
