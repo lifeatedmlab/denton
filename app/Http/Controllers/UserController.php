@@ -104,7 +104,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::findOrFail($user->id);
+        $user = User::findOrFail($id);
         if ($request->file('image') != ""){
             
             $request->validate([
@@ -112,7 +112,7 @@ class UserController extends Controller
                 'code' => 'required|alpha|unique:users|size:3',
             ]);
 
-            Storage::disk('local')->delete('public/images/profile/'.$user->image);
+            Storage::disk('local')->delete('public/images/profile/'.$user->profile_photo_path);
 
             $image = $request->file('image');
             $fileName=date("Y-m-d-His").'_'.$image->getClientOriginalName();
@@ -162,12 +162,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user,$id)
+    public function destroy($id)
     {
+        $user = User::find($id);
         //delete image
-        Storage::disk('local')->delete('public/images/profile/' . $user->image);
+        Storage::disk('local')->delete('public/images/profile/' . $user->profile_photo_path);
 
-        User::find($id)->delete();
+        $user->delete();
 
         return redirect()->route('user.index')
             ->with('success', 'User deleted successfully');
