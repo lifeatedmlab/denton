@@ -40,31 +40,52 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'code' => 'required|alpha|unique:users|size:3',
-        ]);
+        if($request->file('image') != ""){
 
-        $image = $request->file('image');
-        $fileName=date("Y-m-d-His").'_'.$image->getClientOriginalName();
-        $image->storeAs('public/images/profile/', $fileName);   
+            $request->validate([
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'code' => 'required|alpha|unique:users|size:3',
+            ]);
 
-        User::create([
-            'name' => $request->name,
-            'code' => strtoupper($request->code),
-            'nim' => $request->nim,
-            'generation' => $request->generation,
-            'batch_year' => $request->batch_year,
-            'status' => $request->status,
-            'socmed' => [
-                'linkedin' => $request->sm_linkedin,
-                'github' => $request->sm_github,
-                'instagram' => $request->sm_instagram,
-            ],
-            'email' => $request->email,
-            'password' => Hash::make($request->nim),
-            'profile_photo_path' => $fileName,
-        ]);
+            $image = $request->file('image');
+            $fileName=date("Y-m-d-His").'_'.$image->getClientOriginalName();
+            $image->storeAs('public/images/profile/', $fileName);   
+
+            User::create([
+                'name' => $request->name,
+                'code' => strtoupper($request->code),
+                'nim' => $request->nim,
+                'generation' => $request->generation,
+                'batch_year' => $request->batch_year,
+                'status' => $request->status,
+                'socmed' => [
+                    'linkedin' => $request->sm_linkedin,
+                    'github' => $request->sm_github,
+                    'instagram' => $request->sm_instagram,
+                ],
+                'email' => $request->email,
+                'password' => Hash::make($request->nim),
+                'profile_photo_path' => $fileName,
+            ]);
+            
+        }else{
+            User::create([
+
+                'name' => $request->name,
+                'code' => strtoupper($request->code),
+                'nim' => $request->nim,
+                'generation' => $request->generation,
+                'batch_year' => $request->batch_year,
+                'status' => $request->status,
+                'socmed' => [
+                    'linkedin' => $request->sm_linkedin,
+                    'github' => $request->sm_github,
+                    'instagram' => $request->sm_instagram,
+                ],
+                'email' => $request->email,
+                'password' => Hash::make($request->nim),
+            ]);
+        }
 
         if($request->submit == 'add'){
             return redirect()->route('user.create')->with('success', 'User added successfully');
@@ -102,58 +123,62 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$id)
     {
-        $user = User::findOrFail($user->id);
-        if ($request->file('image') != ""){
-            
-            $request->validate([
-                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'code' => 'required|alpha|unique:users|size:3',
-            ]);
+        $user = User::findOrFail($id);
 
-            Storage::disk('local')->delete('public/images/profile/'.$user->image);
+            if ($request->file('image') != ""){
+                
+                $request->validate([
+                    'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                    'code' => 'required|alpha|unique:users|size:3',
+                ]);
 
-            $image = $request->file('image');
-            $fileName=date("Y-m-d-His").'_'.$image->getClientOriginalName();
-            $image->storeAs('public/images/profile/', $fileName);
+                Storage::disk('local')->delete('public/images/profile/' . $user->profile_photo_path);
 
-            User::find($id)->update([
+                $image = $request->file('image');
+                $fileName=date("Y-m-d-His").'_'.$image->getClientOriginalName();
+                $image->storeAs('public/images/profile/', $fileName);
 
-                'name' => $request->name,
-                'code' => strtoupper($request->code),
-                'nim' => $request->nim,
-                'generation' => $request->generation,
-                'batch_year' => $request->batch_year,
-                'status' => $request->status,
-                'socmed' => [
-                    'linkedin' => $request->sm_linkedin,
-                    'github' => $request->sm_github,
-                    'instagram' => $request->sm_instagram,
-                ],
-                'email' => $request->email,
-                'password' => Hash::make($request->nim),
-                'profile_photo_path' => $fileName,
-            ]);
+                $user->update([
 
-        }else{
-            User::find($id)->update([
+                    'name' => $request->name,
+                    'code' => strtoupper($request->code),
+                    'nim' => $request->nim,
+                    'generation' => $request->generation,
+                    'batch_year' => $request->batch_year,
+                    'status' => $request->status,
+                    'socmed' => [
+                        'linkedin' => $request->sm_linkedin,
+                        'github' => $request->sm_github,
+                        'instagram' => $request->sm_instagram,
+                    ],
+                    'email' => $request->email,
+                    'password' => Hash::make($request->nim),
+                    'profile_photo_path' => $fileName,
+                ]);
 
-                'name' => $request->name,
-                'code' => strtoupper($request->code),
-                'nim' => $request->nim,
-                'generation' => $request->generation,
-                'batch_year' => $request->batch_year,
-                'status' => $request->status,
-                'socmed' => [
-                    'linkedin' => $request->sm_linkedin,
-                    'github' => $request->sm_github,
-                    'instagram' => $request->sm_instagram,
-                ],
-                'email' => $request->email,
-                'password' => Hash::make($request->nim),
-            ]);
-        }
+            }else{
+                $user->update([
+
+                    'name' => $request->name,
+                    'code' => strtoupper($request->code),
+                    'nim' => $request->nim,
+                    'generation' => $request->generation,
+                    'batch_year' => $request->batch_year,
+                    'status' => $request->status,
+                    'socmed' => [
+                        'linkedin' => $request->sm_linkedin,
+                        'github' => $request->sm_github,
+                        'instagram' => $request->sm_instagram,
+                    ],
+                    'email' => $request->email,
+                    'password' => Hash::make($request->nim),
+                ]);
+            }
+
+        return redirect()->route('user.index')
+             ->with('success', 'User has been successfully edited');
     }
 
     /**
@@ -162,12 +187,14 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user,$id)
+    public function destroy($id)
     {
         //delete image
-        Storage::disk('local')->delete('public/images/profile/' . $user->image);
+        $user = User::find($id);
 
-        User::find($id)->delete();
+        Storage::disk('local')->delete('public/images/profile/' . $user->profile_photo_path);
+
+        $user->delete();
 
         return redirect()->route('user.index')
             ->with('success', 'User deleted successfully');

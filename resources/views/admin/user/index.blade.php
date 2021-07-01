@@ -80,9 +80,13 @@
                             </ul>
                         </td>
                         <td>{{ $user->email }}</td>
-                        <td class="text-center">
-                                <img src="{{ Storage::url('public/images/profile/'.$user->profile_photo_path )}}" alt="{{ $user->profile_photo_path }}" width="250px" height="200px">
+                        <td class="text">
+                        @if ($user->profile_photo_path!="")
+                            <img src="{{ Storage::url('public/images/profile/'.$user->profile_photo_path )}}" alt="{{ $user->profile_photo_path }}" width="250px" height="200px">
+                        @else
+                            -
                         </td>
+                        @endif
                         <td class="text-center">
                             <form action="{{ route('user.destroy', $user->id) }}" onsubmit="return confirm('Are you sure you want to delete it?')" method="POST">
                                 <a class="btn btn-primary btn-sm" href="{{ route('user.edit', $user->code) }}">Edit</a>

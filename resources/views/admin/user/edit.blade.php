@@ -120,12 +120,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col"></div>
-                        <div class="col">
-                            <button class="btn btn-block btn-primary" name="sumit">Update</button>
-                        </div>
-                        <div class="col"></div>
+                        <button class="btn btn-block btn-primary" type="submit" name="submit" >Update</button> 
                     </div>
                 </form>
             </div>
