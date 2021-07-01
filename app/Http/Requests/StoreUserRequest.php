@@ -31,7 +31,6 @@ class StoreUserRequest extends FormRequest
             'batch_year' => 'required',
             'status' => 'required',
             'email' => 'required',
-            'password' => 'required'
         ];
     }
 }

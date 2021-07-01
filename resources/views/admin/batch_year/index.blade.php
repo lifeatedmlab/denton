@@ -1,5 +1,5 @@
 @extends('layouts.admin.app')
-@section('title', 'Portofolio')
+@section('title', 'Batch Year')
 @section('header')
 <div class="row align-items-center py-4">
     <div class="col-lg-6 col-7">
@@ -45,14 +45,6 @@
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th>No</th>                     
-                            <th>Year</th>
-                            <th>Is Active</th>
-                            <th class="text-center">Action</th>
-                        </tr>
-                    </tfoot>
                     <tbody>
                         @foreach ($batch_years as $batch_year)
                         <tr>

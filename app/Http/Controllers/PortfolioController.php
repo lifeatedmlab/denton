@@ -45,11 +45,12 @@ class PortfolioController extends Controller
         ]);
 
         $image = $request->file('image');
-        $image->storeAs('public/images/', $image->hashName());
+        $fileName=date("Y-m-d-His").'_'.$image->getClientOriginalName();
+        $image->storeAs('public/images/portfolio/', $fileName);
 
         Portfolio::create([
             'name' => $request->name,
-            'image' => $image->hashName(),
+            'image' => $fileName,
             'description' => $request->description,
             'year' => $request->year,
             'link' => $request->link
@@ -103,11 +104,12 @@ class PortfolioController extends Controller
 
             //upload new image
             $image = $request->file('image');
-            $image->storeAs('public/images/', $image->hashName());
+            $fileName=date("Y-m-d-His").'_'.$image->getClientOriginalName();
+            $image->storeAs('public/images/portfolio/', $fileName);
 
             $portfolio->update([
                 'name' => $request->name,
-                'image' => $image->hashName(),
+                'image' => $fileName,
                 'description' => $request->description,
                 'year' => $request->year,
                 'link' => $request->link
@@ -137,7 +139,7 @@ class PortfolioController extends Controller
         $portfolio->delete();
 
         //delete image
-        Storage::disk('local')->delete('public/images/' . $portfolio->image);
+        Storage::disk('local')->delete('public/images/portfolio/' . $portfolio->image);
 
         return redirect()->route('portfolio.index')
             ->with('success', 'Portfolio deleted successfully');

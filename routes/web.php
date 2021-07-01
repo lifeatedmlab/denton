@@ -32,7 +32,10 @@ Route::prefix('admin')->group(function(){
         // Gallery Routes
         Route::resource('gallery', GalleryController::class);
         // User Routes
-        Route::resource('user', UserController::class);
+        Route::resource('user', UserController::class)->parameters([
+            'user' => 'code'
+        ]);
+        
     });
 Auth::routes();
 

@@ -52,7 +52,7 @@
                 </div>
                 @endif
 
-                <form action="{{ route('user.store') }}" method="POST">
+                <form action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-row">
                         <div class="col mb-3">
@@ -61,13 +61,13 @@
                         </div>
                         <div class="col mb-3">
                             <label class="form-control-label" for="code">User Code</label>
-                            <input type="text" class="form-control text-dark" id="code" name="code" placeholder="The new user code" required>
+                            <input type="text" class="form-control text-dark" id="code" name="code" placeholder="Ex : NNN" required>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="col mb-3">
                             <label class="form-control-label" for="nim">Nim</label>
-                            <input type="text" class="form-control text-dark" id="position" name="position"  placeholder="The new user nim" required>
+                            <input type="text" class="form-control text-dark" id="nim" name="nim"  placeholder="The new user nim" required>
                         </div>
                         <div class="col mb-3">
                             <label class="form-control-label" for="generation">Generation</label>
@@ -83,9 +83,8 @@
                     <div class="form-row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label class="form-control-label" for="year">Batch Year</label>
-                                <input type="form-control text-dark" class="form-control" name="year" id="datepicker" />
-                                <input type="hidden" class="form-control" name="is_active" id="is_active" value=1 />
+                                <label class="form-control-label" for="batch_year">Batch Year</label>
+                                <input type="form-control text-dark" class="form-control" name="batch_year" id="datepicker" />
                             </div>
                         </div>
                         <div class="col mb-3">
@@ -113,14 +112,14 @@
                     </div>
                     <div class='form-row'>
                         <div class="col mb-3">
-                            <label class="form-control-label" for="name">Email</label>
+                            <label class="form-control-label" for="email">Email</label>
                             <input type="email" class="form-control text-dark" id="email" name="email" placeholder="The new user email" required>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label class="form-control-label" for="profile_photo_path">Profile Photo</label>
+                                <label class="form-control-label" for="image">Profile Photo</label>
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="profile_photo_path" name="profile_photo_path" required>
+                                    <input type="file" class="custom-file-input" id="image" name="image" >
                                     <label class="custom-file-label" for="image">Choose file</label>
                                 </div>
                             </div>

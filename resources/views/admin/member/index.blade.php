@@ -49,19 +49,6 @@
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th>No</th>
-                            <th>Name</th>
-                            <th>Code</th>
-                            <th>Position</th>
-                            <th>Generation</th>
-                            <th>Batch Year</th>
-                            <th>Status</th>
-                            <th>Social Media</th>
-                            <th class="text-center">Action</th>
-                        </tr>
-                    </tfoot>
                     <tbody>
                     @foreach ($members as $member)
                     <tr>

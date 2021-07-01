@@ -48,23 +48,12 @@
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th>No</th>
-                            <th class="text-center">Image</th>
-                            <th>Name</th>                            
-                            <th>Description</th>
-                            <th>Year</th>
-                            <th>Link</th>
-                            <th class="text-center">Action</th>
-                        </tr>
-                    </tfoot>
                     <tbody>
                         @foreach ($portfolios as $portfolio)
                         <tr>
                             <td>{{ $loop->iteration }}</td>                            
                             <td class="text-center">
-                                <img src="{{ Storage::url('public/images/'.$portfolio->image )}}" alt="{{ $portfolio->image }}" width="250px" height="200px">
+                                <img src="{{ Storage::url('public/images/portfolio/'.$portfolio->image )}}" alt="{{ $portfolio->image }}" width="250px" height="200px">
                             </td>
                             <td>{{ $portfolio->name }}</td>
                             <td class="text-wrap">{{ $portfolio->description }}</td>

@@ -45,20 +45,12 @@
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th>No</th>
-                            <th class="text-center">Image</th>
-                            <th>Is Archive</th>                           
-                            <th class="text-center">Action</th>
-                        </tr>
-                    </tfoot>
                     <tbody>
                         @foreach ($galleries as $gallery)
                         <tr>
                             <td>{{ $loop->iteration }}</td>                            
                             <td class="text-center">
-                                <img src="{{ Storage::url('public/images/gallery'.$gallery->image )}}" alt="{{ $gallery->image }}" width="250px" height="200px">
+                                <img src="{{ Storage::url('public/images/gallery/'.$gallery->image )}}" alt="{{ $gallery->image }}" width="250px" height="200px">
                             </td>
                             @if($gallery->is_archive==1)
                                 <td>True</td>

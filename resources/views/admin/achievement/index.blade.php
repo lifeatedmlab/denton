@@ -1,5 +1,5 @@
 @extends('layouts.admin.app')
-@section('title', 'Portfolio')
+@section('title', 'Achievement')
 @section('header')
 <div class="row align-items-center py-4">
     <div class="col-lg-6 col-7">
@@ -47,22 +47,12 @@
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th>No</th>
-                            <th class="text-center">Image</th>
-                            <th>Name</th>                            
-                            <th>Description</th>
-                            <th>Year</th>
-                            <th class="text-center">Action</th>
-                        </tr>
-                    </tfoot>
                     <tbody>
                         @foreach ($achievements as $achievement)
                         <tr>
                             <td>{{ $loop->iteration }}</td>                            
                             <td class="text-center">
-                                <img src="{{ Storage::url('public/images/achievements'.$achievement->image )}}" alt="{{ $achievement->image }}" width="250px" height="200px">
+                                <img src="{{ Storage::url('public/images/achievements/'.$achievement->image )}}" alt="{{ $achievement->image }}" width="250px" height="200px">
                             </td>
                             <td>{{ $achievement->name }}</td>
                             <td class="text-wrap">{{ $achievement->description }}</td>

@@ -44,11 +44,12 @@ class AchievementController extends Controller
         ]);
 
         $image = $request->file('image');
-        $image->storeAs('public/images/achievements/', $image->getClientOriginalName());
+        $fileName=date("Y-m-d-His").'_'.$image->getClientOriginalName();
+        $image->storeAs('public/images/achievements/', $fileName);
 
         Achievement::create([
             'name' => $request->name,
-            'image' => $image->getClientOriginalName(),
+            'image' => $fileName,
             'description' => $request->description,
             'year' => $request->year,
         ]);
@@ -101,11 +102,13 @@ class AchievementController extends Controller
 
             //upload new image
             $image = $request->file('image');
-            $image->storeAs('public/images/achievements/', $image->getClientOriginalName());
+            $fileName=date("Y-m-d-His").'_'.$image->getClientOriginalName();
+            $image->storeAs('public/images/achievements/', $fileName);
+
 
             $achievement->update([
                 'name' => $request->name,
-                'image' => $image->getClientOriginalName(),
+                'image' => $fileName,
                 'description' => $request->description,
                 'year' => $request->year,
             ]);

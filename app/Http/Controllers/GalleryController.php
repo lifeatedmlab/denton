@@ -42,12 +42,12 @@ class GalleryController extends Controller
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
         $image = $request->file('image');
-        $image->storeAs('public/images/gallery/', $image->getClientOriginalName());
+        $fileName=date("Y-m-d-His").'_'.$image->getClientOriginalName();
+        $image->storeAs('public/images/gallery/', $fileName);
 
         Gallery::create([
-            'image' => $image->getClientOriginalName(),
+            'image' => $fileName,
             'is_archive' => true,
             
         ]);
@@ -91,7 +91,7 @@ class GalleryController extends Controller
      */
     public function update(Request $request, Gallery $gallery)
     {
-         //get data Achievements ID
+         //get data Gallery ID
          $gallery = Gallery::findOrFail($gallery->id);
 
          if ($request->file('image') != "") {
@@ -99,11 +99,12 @@ class GalleryController extends Controller
              Storage::disk('local')->delete('public/images/gallery/'.$gallery->image);
  
              //upload new image
-             $image = $request->file('image');
-             $image->storeAs('public/images/achievements/', $image->getClientOriginalName());
+            $image = $request->file('image');
+            $fileName=date("Y-m-d-His").'_'.$image->getClientOriginalName();
+            $image->storeAs('public/images/profile/', $fileName);
  
              $gallery->update([
-                 'image' => $image->getClientOriginalName(),
+                 'image' => $fileName,
                  'is_archive' => true
              ]);
          } else {
@@ -111,6 +112,7 @@ class GalleryController extends Controller
          $gallery->update([
              'is_archive'=>true
          ]);
+         
          }
  
          return redirect()->route('gallery.index')

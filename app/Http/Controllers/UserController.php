@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Cache\Store;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -37,8 +38,17 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreUserRequest $request)
+    public function store(Request $request)
     {
+        $request->validate([
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'code' => 'required|alpha|unique:users|size:3',
+        ]);
+
+        $image = $request->file('image');
+        $fileName=date("Y-m-d-His").'_'.$image->getClientOriginalName();
+        $image->storeAs('public/images/profile/', $fileName);   
+
         User::create([
             'name' => $request->name,
             'code' => strtoupper($request->code),
@@ -52,15 +62,13 @@ class UserController extends Controller
                 'instagram' => $request->sm_instagram,
             ],
             'email' => $request->email,
-            'password' => $request->nim,
-            'profile_photo_path' => $request->getClientOriginalName(),
-
+            'password' => Hash::make($request->nim),
+            'profile_photo_path' => $fileName,
         ]);
 
         if($request->submit == 'add'){
             return redirect()->route('user.create')->with('success', 'User added successfully');
         }
-
         return redirect()->route('user.index')->with('success', 'User added successfully');
     }
 
@@ -94,25 +102,58 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUserRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        User::find($id)->update([
+        $user = User::findOrFail($user->id);
+        if ($request->file('image') != ""){
+            
+            $request->validate([
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'code' => 'required|alpha|unique:users|size:3',
+            ]);
 
-            'name' => $request->name,
-            'code' => strtoupper($request->code),
-            'nim' => $request->nim,
-            'generation' => $request->generation,
-            'batch_year' => $request->batch_year,
-            'status' => $request->status,
-            'socmed' => [
-                'linkedin' => $request->sm_linkedin,
-                'github' => $request->sm_github,
-                'instagram' => $request->sm_instagram,
-            ],
-            'email' => $request->email,
-            'password' => $request->nim,
-            'profile_photo_path' => $request->getClientOriginalName(),
-        ]);
+            Storage::disk('local')->delete('public/images/profile/'.$user->image);
+
+            $image = $request->file('image');
+            $fileName=date("Y-m-d-His").'_'.$image->getClientOriginalName();
+            $image->storeAs('public/images/profile/', $fileName);
+
+            User::find($id)->update([
+
+                'name' => $request->name,
+                'code' => strtoupper($request->code),
+                'nim' => $request->nim,
+                'generation' => $request->generation,
+                'batch_year' => $request->batch_year,
+                'status' => $request->status,
+                'socmed' => [
+                    'linkedin' => $request->sm_linkedin,
+                    'github' => $request->sm_github,
+                    'instagram' => $request->sm_instagram,
+                ],
+                'email' => $request->email,
+                'password' => Hash::make($request->nim),
+                'profile_photo_path' => $fileName,
+            ]);
+
+        }else{
+            User::find($id)->update([
+
+                'name' => $request->name,
+                'code' => strtoupper($request->code),
+                'nim' => $request->nim,
+                'generation' => $request->generation,
+                'batch_year' => $request->batch_year,
+                'status' => $request->status,
+                'socmed' => [
+                    'linkedin' => $request->sm_linkedin,
+                    'github' => $request->sm_github,
+                    'instagram' => $request->sm_instagram,
+                ],
+                'email' => $request->email,
+                'password' => Hash::make($request->nim),
+            ]);
+        }
     }
 
     /**
@@ -121,9 +162,14 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user,$id)
     {
+        //delete image
+        Storage::disk('local')->delete('public/images/profile/' . $user->image);
+
         User::find($id)->delete();
-        return redirect()->route('user.index')->with('success', 'User deleted successfully');
+
+        return redirect()->route('user.index')
+            ->with('success', 'User deleted successfully');
     }
 }

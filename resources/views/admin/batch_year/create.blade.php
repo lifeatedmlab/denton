@@ -1,5 +1,5 @@
 @extends('layouts.admin.app')
-@section('title', 'Batch Year')
+@section('title', 'Add Batch Year')
 @section('header')
 <div class="row align-items-center py-4">
     <div class="col-lg-6 col-7">
