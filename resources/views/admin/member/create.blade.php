@@ -71,7 +71,7 @@
                         </div>
                         <div class="col mb-3">
                             <label class="form-control-label" for="generation">Generation</label>
-                            <select class="form-control text-dark" id="generation" name="generation" required>
+                            <select class="form-control text-dark" id="generation" name="generation" multiple="multiple" required>
                                 <option value="1st Generation">1st Generation</option>
                                 <option value="2nd Generation">2nd Generation</option>
                                 <option value="3rd Generation">3rd Generation</option>

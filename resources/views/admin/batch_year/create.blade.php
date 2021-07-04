@@ -59,7 +59,6 @@
                             <div class="form-group">
                                 <label class="form-control-label" for="year">Batch Year</label>
                                 <input type="form-control text-dark" class="form-control" name="year" id="datepicker" />
-                                <input type="hidden" class="form-control" name="is_active" id="is_active" value=1 />
                             </div>
                         </div>
                     </div>
