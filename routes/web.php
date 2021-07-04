@@ -12,11 +12,11 @@ use Illuminate\Support\Facades\Route;
 Route::view('/', 'index')->name('index');
 Route::view('/our-team', 'our-team')->name('our-team');
 Route::view('/portfolio', 'portfolio')->name('portfolio');
-Route::view('/dashboard', 'admin.dashboard')->name('dashboard');
 Route::view('/dashboardd', 'dashboard')->name('dashboardd');
 
 
-Route::prefix('admin')->group(function(){
+Route::middleware(['auth','role:Admin'])->prefix('admin')->group(function(){
+    Route::view('/', 'admin.dashboard')->name('dashboard');
 
         // Member Routes
         Route::resource('member', MemberController::class)->parameters([
