@@ -116,6 +116,13 @@
                     </div>
                 </div>
             @endif
+            @if ($message = Session::get('success'))
+            <div class="card-body">
+                <div class="alert alert-success">
+                    <h2>{{ $message }}</h2>
+                </div>
+            </div>
+            @endif
             
                 <form action="{{route('profile.update', Auth::user()->id)}}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -140,7 +147,7 @@
                     <div class="col-lg-12">
                       <div class="form-group">
                         <label class="form-control-label" for="password">Password</label>
-                        <input type="password" class="form-control text-dark" id="password" name="password" placeholder="New Password" >
+                        <input type="password" class="form-control text-dark" id="password" name="password" placeholder="New Password">
                       </div>
                     </div>
                   </div>

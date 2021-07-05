@@ -78,7 +78,7 @@ class ProfileController extends Controller
         $profileId=Auth::user()->id;
         $profile = User::findOrFail($profileId);
 
-            if ($request->file('image') != ""){
+            if ($request->file('image') != "" && $request->password != ""  ){
                 
                 $request->validate([
                     'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -124,7 +124,6 @@ class ProfileController extends Controller
                         'instagram' => $request->sm_instagram,
                     ],
                     'email' => $request->email,
-                    'password' => Hash::make($request->password),
                 ]);
             }
 
