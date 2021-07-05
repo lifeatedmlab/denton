@@ -1,5 +1,5 @@
 @extends('layouts.admin.app')
-@section('title', 'Edit Member')
+@section('title', 'Edit User')
 @section('header')
 <div class="row align-items-center py-4">
     <div class="col-lg-6 col-7">
@@ -8,13 +8,13 @@
             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                 <li class="breadcrumb-item"><a href="{{ route('index') }}"><i class="fas fa-home"></i></a></li>
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('user.index') }}">Member</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Edit Member</li>
+                <li class="breadcrumb-item"><a href="{{ route('user.index') }}">User</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Edit User</li>
             </ol>
         </nav>
     </div>
     <div class="col-lg-6 col-5 text-right">
-        <a href="{{ route('user.index') }}" class="btn btn-md btn-neutral"><< Member List</a>
+        <a href="{{ route('user.index') }}" class="btn btn-md btn-neutral"><< User List</a>
     </div>
 </div>
 @endsection
@@ -93,6 +93,18 @@
                     </div>
                     <div class="form-row">
                         <div class="col mb-3">
+                            <label class="form-control-label" for="email">Email</label>
+                            <input type="email" class="form-control text-dark" value="{{ old('email', $user->email) }}" id="email" name="email" placeholder="New Email" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col mb-3">
+                            <label class="form-control-label" for="password">Password</label>
+                            <input type="password" class="form-control text-dark" id="password" name="password" placeholder="New Password" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col mb-3">
                             <label class="form-control-label" for="sm_linkedin">LinkedIn</label>
                             <input type="text" class="form-control text-dark" id="sm_linkedin" value="{{ $user->socmed['linkedin'] ?? '' }}" name="sm_linkedin" placeholder="Linkedin username">
                         </div>
@@ -106,10 +118,6 @@
                         </div>
                     </div>
                     <div class='form-row'>
-                        <div class="col mb-3">
-                            <label class="form-control-label" for="email">Email</label>
-                            <input type="email" class="form-control text-dark" id="email" name="email" value="{{ old('email',$user->email) }}" placeholder="The new user email" required>
-                        </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="form-control-label" for="image">Profile Photo</label>

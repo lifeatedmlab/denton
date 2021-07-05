@@ -6,13 +6,14 @@ use App\Http\Controllers\AchievementController;
 use App\Http\Controllers\BatchYearController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 
 Route::view('/', 'index')->name('index');
 Route::view('/our-team', 'our-team')->name('our-team');
 Route::view('/portfolio', 'portfolio')->name('portfolio');
-Route::view('/dashboardd', 'dashboard')->name('dashboardd');
+
 
 
 Route::middleware(['auth','role:Admin'])->prefix('admin')->group(function(){
@@ -35,7 +36,8 @@ Route::middleware(['auth','role:Admin'])->prefix('admin')->group(function(){
         Route::resource('user', UserController::class)->parameters([
             'user' => 'code'
         ]);
-        
+        // Profile Routes
+        Route::resource('profile', ProfileController::class);
     });
 Auth::routes();
 

@@ -7,8 +7,11 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
-class UserController extends Controller
+
+
+class ProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +20,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
-        $users = User::latest()->paginate(5);
-        return view('admin.user.index', compact('users'))->with('i', (request()->input('page', 1) - 1) * 5);
+        return view('admin.profile.edit');
     }
 
     /**
@@ -29,7 +30,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.user.create');
+        //
     }
 
     /**
@@ -40,57 +41,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        if($request->file('image') != ""){
-
-            $request->validate([
-                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'code' => 'required|alpha|unique:users|size:3',
-            ]);
-
-            $image = $request->file('image');
-            $fileName=date("Y-m-d-His").'_'.$image->getClientOriginalName();
-            $image->storeAs('public/images/profile/', $fileName);   
-
-            User::create([
-                'name' => $request->name,
-                'code' => strtoupper($request->code),
-                'nim' => $request->nim,
-                'generation' => $request->generation,
-                'batch_year' => $request->batch_year,
-                'status' => $request->status,
-                'socmed' => [
-                    'linkedin' => $request->sm_linkedin,
-                    'github' => $request->sm_github,
-                    'instagram' => $request->sm_instagram,
-                ],
-                'email' => $request->email,
-                'password' => Hash::make($request->nim),
-                'profile_photo_path' => $fileName,
-            ]);
-            
-        }else{
-            User::create([
-
-                'name' => $request->name,
-                'code' => strtoupper($request->code),
-                'nim' => $request->nim,
-                'generation' => $request->generation,
-                'batch_year' => $request->batch_year,
-                'status' => $request->status,
-                'socmed' => [
-                    'linkedin' => $request->sm_linkedin,
-                    'github' => $request->sm_github,
-                    'instagram' => $request->sm_instagram,
-                ],
-                'email' => $request->email,
-                'password' => Hash::make($request->nim),
-            ]);
-        }
-
-        if($request->submit == 'add'){
-            return redirect()->route('user.create')->with('success', 'User added successfully');
-        }
-        return redirect()->route('user.index')->with('success', 'User added successfully');
+        //
     }
 
     /**
@@ -110,10 +61,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($code)
+    public function edit()
     {
-        $user = User::where('code', $code)->first();
-        return view('admin.user.edit', compact('user'));
+       
     }
 
     /**
@@ -123,24 +73,25 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
-        $user = User::findOrFail($id);
+        $profileId=Auth::user()->id;
+        $profile = User::findOrFail($profileId);
 
             if ($request->file('image') != ""){
                 
                 $request->validate([
                     'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                    'code' => 'required|alpha|unique:users|size:3',
+                    
                 ]);
 
-                Storage::disk('local')->delete('public/images/profile/' . $user->profile_photo_path);
+                Storage::disk('local')->delete('public/images/profile/' . Auth::user()->profile_photo_path);
 
                 $image = $request->file('image');
                 $fileName=date("Y-m-d-His").'_'.$image->getClientOriginalName();
                 $image->storeAs('public/images/profile/', $fileName);
 
-                $user->update([
+                Auth::user()->update([
 
                     'name' => $request->name,
                     'code' => strtoupper($request->code),
@@ -159,7 +110,7 @@ class UserController extends Controller
                 ]);
 
             }else{
-                $user->update([
+                Auth::user()->update([
 
                     'name' => $request->name,
                     'code' => strtoupper($request->code),
@@ -177,8 +128,8 @@ class UserController extends Controller
                 ]);
             }
 
-        return redirect()->route('user.index')
-             ->with('success', 'User has been successfully edited');
+        return redirect()->route('profile.index')
+             ->with('success', 'Profile has been successfully edited');
     }
 
     /**
@@ -189,13 +140,6 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::find($id);
-        //delete image
-        Storage::disk('local')->delete('public/images/profile/' . $user->profile_photo_path);
-
-        $user->delete();
-
-        return redirect()->route('user.index')
-            ->with('success', 'User deleted successfully');
+        //
     }
 }

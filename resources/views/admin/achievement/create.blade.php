@@ -65,8 +65,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group" id="user">
-                                <label class="form-control-label" for="users">User</label>
-                                    <select class="form-control" data-toggle="select" name="users[]" multiple data-live-search="true" data-live-search-placeholder="Search ...">
+                                <label class="form-control-label" for="user">User</label>
+                                    <select class="form-control" data-toggle="select" name="user[]" multiple data-live-search="true" data-live-search-placeholder="Search ...">
                                         <optgroup label="Alaskan/Hawaiian Time Zone">
                                             <option value="AK">Alaska</option>
                                             <option value="HI">Hawaii</option>
