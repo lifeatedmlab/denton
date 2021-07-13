@@ -59,6 +59,18 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
+                            <div class="form-group" id="user">
+                                <label class="form-control-label" for="user">User</label>
+                                    <select class="form-control" data-toggle="select" name="user[]" multiple data-live-search="true" data-live-search-placeholder="Search ...">
+                                        @foreach($users as $user)
+                                            <option value="{{$user->id}}">{{$user->name}}</option>
+                                        @endforeach
+                                    </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <label class="form-control-label" for="year">Achievement Year</label>
                                 <input type="form-control text-dark" value="{{ old('year', $achievement->year) }}"class="form-control" name="year" id="datepicker" />
@@ -95,10 +107,11 @@
 <link rel="stylesheet" href="{{asset('assets/vendor/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}">
 <link rel="stylesheet" href="{{asset('assets/vendor/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css')}}">
 <link rel="stylesheet" href="{{asset('assets/vendor/datatables.net-select-bs4/css/select.bootstrap4.min.css')}}">
+<link href="{{asset('assets/vendor/select2/dist/css/select2.min.css')}}" rel="stylesheet" />
 @endpush
 
 @push('js')
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="{{asset('assets/vendor/select2/dist/js/select2.min.js')}}"></script>
 <script src="https://netdna.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
 <script>

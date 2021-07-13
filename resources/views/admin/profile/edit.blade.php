@@ -21,9 +21,9 @@
 <div class="container-fluid d-flex align-items-center">
         <div class="row">
           <div class="col-lg-7 col-md-10">
-            <h1 class="display-2 text-white">Hello {{Auth::user()->name}}</h1>
+            <h1 class="display-2 text-white">Hello, {{Auth::user()->name}}</h1>
             <p class="text-white mt-0 mb-5">This is your profile page. You can see the progress you've made with your work and manage your projects or assigned tasks</p>
-            <a href="#!" class="btn btn-neutral">Edit profile</a>
+            
             
           </div>
 
@@ -40,7 +40,11 @@
               <div class="col-lg-3 order-lg-2">
                 <div class="card-profile-image">
                   <a href="#">
-                    <img src="{{ Storage::url('public/images/profile/'.Auth:: user()->profile_photo_path) }}" class="rounded-circle">
+                    @if(Auth::user()->profile_photo_path !="")
+                      <img src="{{ Storage::url('public/images/profile/'. Auth::user()->profile_photo_path ) }}" alt="{{Auth::user()->profile_photo_path}}" class="rounded-circle">
+                    @else
+                      <img alt="" src="{{ asset('images/profile.png') }}" class="rounded-circle">
+                    @endif
                   </a>
                 </div>
               </div>

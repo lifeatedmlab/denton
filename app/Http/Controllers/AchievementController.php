@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Achievement;
+use App\Models\User;
+use App\Models\UserHasAchievement;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -28,7 +30,9 @@ class AchievementController extends Controller
      */
     public function create()
     {
-        return view('admin.achievement.create');
+        $users= User::all();
+        $userAchievements= UserHasAchievement::all();
+        return view('admin.achievement.create',compact('users','userAchievements'));
     }
 
     /**
@@ -37,7 +41,7 @@ class AchievementController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,Achievement $achievement,UserHasAchievement $userAchievement)
     {
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -46,13 +50,22 @@ class AchievementController extends Controller
         $image = $request->file('image');
         $fileName=date("Y-m-d-His").'_'.$image->getClientOriginalName();
         $image->storeAs('public/images/achievements/', $fileName);
-
-        Achievement::create([
+        
+        
+        $achievementt = $achievement->create([
             'name' => $request->name,
             'image' => $fileName,
             'description' => $request->description,
             'year' => $request->year,
         ]);
+
+        foreach($request->user as $usr)
+        {
+            $userrAchievement= $userAchievement->create([
+                'achievement_id' => $achievementt->id,
+                'user_id' => $usr,
+            ]);
+        }
 
         if ($request->submit == 'add') {
             return redirect()->route('achievement.create')
@@ -81,7 +94,9 @@ class AchievementController extends Controller
      */
     public function edit(Achievement $achievement)
     {
-        return view('admin.achievement.edit', compact('achievement'));
+        $users= User::all();
+        $userAchievements= UserHasAchievement::all();
+        return view('admin.achievement.edit', compact('achievement','users','userAchievements'));
     }
 
     /**
@@ -91,7 +106,7 @@ class AchievementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Achievement $achievement)
+    public function update(Request $request, Achievement $achievement,UserHasAchievement $userAchievement)
     {
         //get data Achievements ID
         $achievement = Achievement::findOrFail($achievement->id);
@@ -106,19 +121,36 @@ class AchievementController extends Controller
             $image->storeAs('public/images/achievements/', $fileName);
 
 
-            $achievement->update([
+            $achievementt=$achievement->update([
                 'name' => $request->name,
                 'image' => $fileName,
                 'description' => $request->description,
                 'year' => $request->year,
             ]);
+
+            foreach($request->user as $usr)
+            {
+                $userAchievement->update([
+                    'achievement_id' => $achievementt->id,
+                    'user_id' => $usr,
+                ]);
+            }
+
         } else {
 
-        $achievement->update([
-            'name' => $request->name,            
-            'description' => $request->description,
-            'year' => $request->year,
-        ]);
+            $achievementt=$achievement->update([
+                'name' => $request->name,            
+                'description' => $request->description,
+                'year' => $request->year,
+            ]);
+
+            foreach($request->user as $usr)
+            {
+                $userAchievement->update([
+                    'achievement_id' => $achievementt->id,
+                    'user_id' => $usr,
+                ]);
+            }
         }
 
         return redirect()->route('achievement.index')

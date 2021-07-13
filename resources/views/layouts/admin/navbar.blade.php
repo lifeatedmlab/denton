@@ -206,7 +206,11 @@
                         <div class="media align-items-center">
                             
                             <span class="avatar avatar-sm rounded-circle">
+                            @if(Auth::user()->profile_photo_path=="")
                                 <img alt="Profile Photo" src="{{ asset('images/profile.png') }}">
+                            @else
+                                <img src="{{ Storage::url('public/images/profile/'. Auth::user()->profile_photo_path ) }}" alt="{{Auth::user()->profile_photo_path}}">
+                            @endif
                             </span>
                            
                             <div class="media-body ml-2 d-none d-lg-block">

@@ -131,7 +131,7 @@ class UserController extends Controller
                 
                 $request->validate([
                     'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                    'code' => 'required|alpha|unique:users|size:3',
+                    'code' => 'size:3',
                 ]);
 
                 Storage::disk('local')->delete('public/images/profile/' . $user->profile_photo_path);
@@ -173,7 +173,7 @@ class UserController extends Controller
                         'instagram' => $request->sm_instagram,
                     ],
                     'email' => $request->email,
-                    'password' => Hash::make($request->password),
+                    'password' => Hash::make($request->password)
                 ]);
             }
 
