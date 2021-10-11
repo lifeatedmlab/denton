@@ -206,23 +206,28 @@
                         <div class="media align-items-center">
                             
                             <span class="avatar avatar-sm rounded-circle">
+                            @if(Auth::user()->profile_photo_path=="")
                                 <img alt="Profile Photo" src="{{ asset('images/profile.png') }}">
+                            @else
+                                <img src="{{ Storage::url('public/images/profile/'. Auth::user()->profile_photo_path ) }}" alt="{{Auth::user()->profile_photo_path}}">
+                            @endif
                             </span>
                            
                             <div class="media-body ml-2 d-none d-lg-block">
-                                <span class="mb-0 text-sm  font-weight-bold">John Snow</span>
+                                <span class="mb-0 text-sm  font-weight-bold">{{Auth::user()->name}}</span>
                             </div>
                         </div>
                     </a>
+                    
                     <div class="dropdown-menu dropdown-menu-right">
                         <div class="dropdown-header noti-title">
                             <h6 class="text-overflow m-0">Welcome!</h6>
                         </div>
-                        <a href="" class="dropdown-item">
+                        
+                        <a class="dropdown-item" href="{{ route('profile.index') }}">
                             <i class="ni ni-single-02"></i>
                             <span>{{ __('Profile') }}</span>
                         </a>
-
                         
                         <a href="#!" class="dropdown-item">
                             <i class="ni ni-calendar-grid-58"></i>
@@ -233,16 +238,16 @@
                             <span>Support</span>
                         </a>
                         <div class="dropdown-divider"></div>
-
                         <!-- Authentication -->
-                        {{-- <form method="POST" action="{{ route('logout') }}">
+                       <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();
-                  this.closest('form').submit();">
+                                this.closest('form').submit();">
                                 <i class="ni ni-user-run"></i>
                                 <span>{{ __('Log Out') }}</span>
                             </a>
-                        </form> --}}
+                        </form>
+                        
                     </div>
                 </li>
             </ul>

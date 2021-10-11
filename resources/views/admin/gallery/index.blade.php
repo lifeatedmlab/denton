@@ -1,5 +1,5 @@
 @extends('layouts.admin.app')
-@section('title', 'Portfolio')
+@section('title', 'Gallery')
 @section('header')
 <div class="row align-items-center py-4">
     <div class="col-lg-6 col-7">
@@ -8,12 +8,12 @@
             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                 <li class="breadcrumb-item"><a href="{{ route('index') }}"><i class="fas fa-home"></i></a></li>
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Portfolios</li>
+                <li class="breadcrumb-item active" aria-current="page">Galleries</li>
             </ol>
         </nav>
     </div>
     <div class="col-lg-6 col-5 text-right">
-        <a href="{{ route('portfolio.create') }}" class="btn btn-md btn-neutral">New Portfolio</a>
+        <a href="{{ route('gallery.create') }}" class="btn btn-md btn-neutral">New Galleries</a>
     </div>
 </div>
 @endsection
@@ -24,7 +24,7 @@
         <div class="card">
             <!-- Card header -->
             <div class="card-header">
-                <h3 class="mb-0">Portfolio List</h3>
+                <h3 class="mb-0">Gallery List</h3>
             </div>
 
             @if ($message = Session::get('success'))
@@ -41,27 +41,25 @@
                         <tr>
                             <th>No</th>
                             <th class="text-center">Image</th>
-                            <th>Name</th>                            
-                            <th>Description</th>
-                            <th>Year</th>
-                            <th>Link</th>
+                            <th>Is Archive</th>                            
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($portfolios as $portfolio)
+                        @foreach ($galleries as $gallery)
                         <tr>
                             <td>{{ $loop->iteration }}</td>                            
                             <td class="text-center">
-                                <img src="{{ Storage::url('public/images/portfolio/'.$portfolio->image )}}" alt="{{ $portfolio->image }}" width="250px" height="200px">
+                                <img src="{{ Storage::url('public/images/gallery/'.$gallery->image )}}" alt="{{ $gallery->image }}" width="250px" height="200px">
                             </td>
-                            <td>{{ $portfolio->name }}</td>
-                            <td class="text-wrap">{{ $portfolio->description }}</td>
-                            <td>{{ $portfolio->year }}</td>
-                            <td><a href="http://{{ $portfolio->link }}">{{ $portfolio->link }}</a></td>
+                            @if($gallery->is_archive==1)
+                                <td>True</td>
+                            @else
+                                <td>False</td>
+                            @endif
                             <td class="text-center">
-                                <form action="{{ route('portfolio.destroy', $portfolio->id) }}" onsubmit="return confirm('Are you sure you want to delete it?')" method="POST">
-                                    <a href="{{ route('portfolio.edit', $portfolio->id) }}" class="btn btn-primary btn-sm">Update</a>
+                                <form action="{{ route('gallery.destroy', $gallery->id) }}" onsubmit="return confirm('Are you sure you want to delete it?')" method="POST">
+                                    <a href="{{ route('gallery.edit', $gallery->id) }}" class="btn btn-primary btn-sm">Update</a>
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-danger btn-sm" type="submit">Delete</button>

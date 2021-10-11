@@ -3,7 +3,7 @@
     <div class="scrollbar-inner">
       <!-- Brand -->
       <div class="sidenav-header d-flex align-items-center">
-        <a class="navbar-brand" href="../../pages/dashboards/dashboard.html">
+        <a class="navbar-brand {{ Request::is('dashboard') ? 'active':''}} " href="{{route('dashboard')}}">
           <img src="../../assets/img/brand/blue.png" class="navbar-brand-img" alt="...">
         </a>
         <div class="ml-auto">
@@ -39,7 +39,31 @@
                 <i class="ni ni-folder-17 text-info"></i>
                 <span class="nav-link-text">Portfolios</span>
               </a>              
-            </li>            
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {{ Request::is('achievement') ? 'active':'' }}" href="{{ route('achievement.index') }}">              
+                <i class="ni ni-folder-17 text-info"></i>
+                <span class="nav-link-text">Achievements</span>
+              </a>              
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {{ Request::is('batch_year') ? 'active':'' }}" href="{{ route('batch_year.index') }}">              
+                <i class="ni ni-bullet-list-67 text-default"></i>
+                <span class="nav-link-text">Batch Years</span>
+              </a>              
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {{ Request::is('gallery') ? 'active':'' }}" href="{{ route('gallery.index') }}">              
+                <i class="ni ni-planet text-orange"></i>
+                <span class="nav-link-text">Galleries</span>
+              </a>              
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {{ Request::is('user') ? 'active':'' }}" href="{{ route('user.index') }}">              
+                <i class="ni ni-single-02 text-yellow"></i>
+                <span class="nav-link-text">Users</span>
+              </a>              
+            </li>
           </ul>
           <!-- Divider -->
           <hr class="my-3">                

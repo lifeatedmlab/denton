@@ -1,5 +1,5 @@
 @extends('layouts.admin.app')
-@section('title', 'Member')
+@section('title', 'User')
 @section('header')
 <div class="row align-items-center py-4">
     <div class="col-lg-6 col-7">
@@ -8,12 +8,12 @@
             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                 <li class="breadcrumb-item"><a href="{{ route('index') }}"><i class="fas fa-home"></i></a></li>
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Member</li>
+                <li class="breadcrumb-item active" aria-current="page">User</li>
             </ol>
         </nav>
     </div>
     <div class="col-lg-6 col-5 text-right">
-        <a href="{{ route('member.create') }}" class="btn btn-md btn-neutral">Add Member</a>
+        <a href="{{ route('user.create') }}" class="btn btn-md btn-neutral">Add User</a>
     </div>
 </div>
 @endsection
@@ -23,7 +23,7 @@
     <div class="col">
         <div class="card">
             <div class="card-header">
-                <h3 class="mb-0">Member List</h3>
+                <h3 class="mb-0">User List</h3>
             </div>
             
             @if ($message = Session::get('success'))
@@ -41,49 +41,59 @@
                             <th>No</th>
                             <th>Name</th>
                             <th>Code</th>
-                            <th>Position</th>
+                            <th>Nim</th>
                             <th>Generation</th>
                             <th>Batch Year</th>
                             <th>Status</th>
                             <th>Social Media</th>
+                            <th>Email</th>
+                            <th>Profile Photo Path</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                    @foreach ($members as $member)
+                    @foreach ($users as $user)
                     <tr>
                         <td class="text-center">{{ ++$i }}</td>
-                        <td>{{ $member->name }}</td>
-                        <td>{{ $member->code }}</td>
-                        <td>{{ $member->position }}</td>
-                        <td>{{ $member->generation }}</td>
-                        <td>{{ $member->batch_year }}</td>
-                        <td>{{ $member->status }}</td>
+                        <td>{{ $user->name }}</td>
+                        <td>{{ $user->code }}</td>
+                        <td>{{ $user->nim }}</td>
+                        <td>{{ $user->generation }}</td>
+                        <td>{{ $user->batch_year }}</td>
+                        <td>{{ $user->status }}</td>
                         <td>
                             {{-- check if member don't have any social media --}}
-                            @if (count(array_filter($member->socmed)) == 0) 
+                            @if (count(array_filter($user->socmed)) == 0) 
                                 <p class="text-center text-secondary">no data</p>
                             @else
                             <ul>
-                                @if ($member->socmed['linkedin'])
-                                        <li><a href="http://linkedin.com/in/{{ $member->socmed['linkedin'] }}" target="_blank">LinkedIn</a></li>
+                                @if ($user->socmed['linkedin'])
+                                        <li><a href="http://linkedin.com/in/{{ $user->socmed['linkedin'] }}" target="_blank">LinkedIn</a></li>
                                     @endif
-                                    @if ($member->socmed['github'])
-                                        <li><a href="http://github.com/{{ $member->socmed['github'] }}" target="_blank">GitHub</a></li>
+                                    @if ($user->socmed['github'])
+                                        <li><a href="http://github.com/{{ $user->socmed['github'] }}" target="_blank">GitHub</a></li>
                                     @endif
-                                    @if ($member->socmed['instagram'])
-                                        <li><a href="http://instagram.com/{{ $member->socmed['instagram'] }}" target="_blank">Instagram</a></li>
+                                    @if ($user->socmed['instagram'])
+                                        <li><a href="http://instagram.com/{{ $user->socmed['instagram'] }}" target="_blank">Instagram</a></li>
                                     @endif
                                 @endif
                             </ul>
                         </td>
+                        <td>{{ $user->email }}</td>
+                        <td class="text">
+                        @if ($user->profile_photo_path!="")
+                            <img src="{{ Storage::url('public/images/profile/'.$user->profile_photo_path )}}" alt="{{ $user->profile_photo_path }}" width="250px" height="200px">
+                        @else
+                            -
+                        </td>
+                        @endif
                         <td class="text-center">
-                            <form action="{{ route('member.destroy', $member->id) }}" method="POST">
-                                <a class="btn btn-primary btn-sm" href="{{ route('member.edit', $member->code) }}">Edit</a>
+                            <form action="{{ route('user.destroy', $user->id) }}" onsubmit="return confirm('Are you sure you want to delete it?')" method="POST">
+                                <a class="btn btn-primary btn-sm" href="{{ route('user.edit', $user->code) }}">Edit</a>
 
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Delete</button>
+                                <button class="btn btn-danger btn-sm" type="submit" >Delete</button>
                             </form>
                         </td>
                     </tr>

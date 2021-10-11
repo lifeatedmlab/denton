@@ -1,5 +1,5 @@
 @extends('layouts.admin.app')
-@section('title', 'Portfolio')
+@section('title', 'Batch Year')
 @section('header')
 <div class="row align-items-center py-4">
     <div class="col-lg-6 col-7">
@@ -8,12 +8,12 @@
             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                 <li class="breadcrumb-item"><a href="{{ route('index') }}"><i class="fas fa-home"></i></a></li>
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Portfolios</li>
+                <li class="breadcrumb-item active" aria-current="page">Batch Year</li>
             </ol>
         </nav>
     </div>
     <div class="col-lg-6 col-5 text-right">
-        <a href="{{ route('portfolio.create') }}" class="btn btn-md btn-neutral">New Portfolio</a>
+        <a href="{{ route('batch_year.create') }}" class="btn btn-md btn-neutral">New Batch Year</a>
     </div>
 </div>
 @endsection
@@ -24,7 +24,7 @@
         <div class="card">
             <!-- Card header -->
             <div class="card-header">
-                <h3 class="mb-0">Portfolio List</h3>
+                <h3 class="mb-0">Batch Year List</h3>
             </div>
 
             @if ($message = Session::get('success'))
@@ -39,34 +39,30 @@
                 <table class="table table-flush" id="datatable-basic">
                     <thead class="thead-light">
                         <tr>
-                            <th>No</th>
-                            <th class="text-center">Image</th>
-                            <th>Name</th>                            
-                            <th>Description</th>
+                            <th>No</th>                           
                             <th>Year</th>
-                            <th>Link</th>
+                            <th>Is Active</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($portfolios as $portfolio)
+                        @foreach ($batch_years as $batch_year)
                         <tr>
-                            <td>{{ $loop->iteration }}</td>                            
-                            <td class="text-center">
-                                <img src="{{ Storage::url('public/images/portfolio/'.$portfolio->image )}}" alt="{{ $portfolio->image }}" width="250px" height="200px">
-                            </td>
-                            <td>{{ $portfolio->name }}</td>
-                            <td class="text-wrap">{{ $portfolio->description }}</td>
-                            <td>{{ $portfolio->year }}</td>
-                            <td><a href="http://{{ $portfolio->link }}">{{ $portfolio->link }}</a></td>
-                            <td class="text-center">
-                                <form action="{{ route('portfolio.destroy', $portfolio->id) }}" onsubmit="return confirm('Are you sure you want to delete it?')" method="POST">
-                                    <a href="{{ route('portfolio.edit', $portfolio->id) }}" class="btn btn-primary btn-sm">Update</a>
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-danger btn-sm" type="submit">Delete</button>
-                                </form>
-                            </td>
+                                <td>{{ $loop->iteration }}</td>                            
+                                <td>{{ $batch_year->year }}</td>
+                            @if($batch_year->is_active==1)
+                                <td>True</td>
+                            @else
+                                <td>False</td>
+                            @endif
+                                <td class="text-center">
+                                    <form action="{{ route('batch_year.destroy', $batch_year->id) }}" onsubmit="return confirm('Are you sure you want to delete it?')" method="POST">
+                                        <a href="{{ route('batch_year.edit', $batch_year->id) }}" class="btn btn-primary btn-sm">Update</a>
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                                    </form>
+                                </td>
                         </tr>
                         @endforeach
                     </tbody>
