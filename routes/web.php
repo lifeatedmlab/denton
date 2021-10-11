@@ -5,8 +5,10 @@ use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\AchievementController;
 use App\Http\Controllers\BatchYearController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\PositionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TermOfOfficeController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -38,6 +40,9 @@ Route::middleware(['auth','role:Admin'])->prefix('admin')->group(function(){
         ]);
         // Profile Routes
         Route::resource('profile', ProfileController::class);
+
+        Route::resource('term_of_office', TermOfOfficeController::class);
+        Route::resource('position', PositionController::class);
     });
 Auth::routes();
 

@@ -66,7 +66,31 @@
             </li>
           </ul>
           <!-- Divider -->
-          <hr class="my-3">                
+          <hr class="my-3">       
+          <h6 class="navbar-heading p-0 text-muted">
+            <span class="docs-normal">Our Team</span>
+          </h6>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link {{ Request::is('term_of_office') ? 'active':'' }}" href="{{ route('term_of_office.index') }}">              
+                <i class="ni ni-single-02 text-yellow"></i>
+                <span class="nav-link-text">List Term of Office</span>
+              </a>              
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {{ Request::is('position') ? 'active':'' }}" href="{{ route('position.index') }}">              
+                <i class="ni ni-single-02 text-yellow"></i>
+                <span class="nav-link-text">List Position</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {{ Request::is('term_of_office') ? 'active':'' }}" href="{{ route('term_of_office.index') }}">              
+                <i class="ni ni-single-02 text-yellow"></i>
+                <span class="nav-link-text">List Division</span>
+              </a>
+            </li>
+          </ul>
+
         </div>
       </div>
     </div>
