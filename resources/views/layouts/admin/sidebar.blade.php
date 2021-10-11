@@ -84,7 +84,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link {{ Request::is('term_of_office') ? 'active':'' }}" href="{{ route('term_of_office.index') }}">              
+              <a class="nav-link {{ Request::is('division') ? 'active':'' }}" href="{{ route('division.index') }}">              
                 <i class="ni ni-single-02 text-yellow"></i>
                 <span class="nav-link-text">List Division</span>
               </a>

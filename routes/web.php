@@ -4,6 +4,7 @@ use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\AchievementController;
 use App\Http\Controllers\BatchYearController;
+use App\Http\Controllers\DivisionController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\UserController;
@@ -43,6 +44,7 @@ Route::middleware(['auth','role:Admin'])->prefix('admin')->group(function(){
 
         Route::resource('term_of_office', TermOfOfficeController::class);
         Route::resource('position', PositionController::class);
+        Route::resource('division', DivisionController::class);
     });
 Auth::routes();
 
